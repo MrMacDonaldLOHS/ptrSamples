@@ -1,13 +1,21 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-// Demonstrates how to allocate an array of ints
+// Demonstrates:
+// 1. How to allocate an array of ints and store them in a pointer.
+// 2. How to access the array elements using a pointer.
+// 3. How to delete the array when we are done with it.
 void example1() {
+    cout << "example1" << endl;
     // The size can be held in a variable or a number
-    int *ptr1 = new int[50];
+    const int ARRAY_SIZE = 5;
+    int *ptr1 = new int[ARRAY_SIZE];
     // Now you can access ptr1 just like any array
-    for (int index = 0; index < 50; index ++) {
+    for (int index = 0; index < ARRAY_SIZE; index ++) {
         ptr1[index] = 0;
+    }
+    for (int index = 0; index < ARRAY_SIZE; index ++) {
+        cout << "ptr1[" << index << "] = " << ptr1[index] << endl;
     }
     // When you are done with a pointer, you must delete it
     // When you allocated an array, you use delete[]
@@ -15,10 +23,16 @@ void example1() {
 }
 
 // Demonstrates how to allocate and use an array of characters
+// The most important part is you must allocate + 1 in order to 
+// have space for the 0.
 void example2() {
+    cout << endl;
+    cout << "example2" << endl;
     // Allocate enough space for the word "hello";
     // We ALWAYS add 1 so we have space for '\0'
     int size = strlen("hello") + 1;
+
+    // We will now have enough space for hello\0
     char *word = new char[size];
 
     // Once we have allocated a character array we can use
@@ -32,39 +46,10 @@ void example2() {
 
 
 
-// Demonstrates reading a string of words from the user
-// and allocating exactly the number of bytes we need.
-char *readLine(istream &in, const char prompt[]) {
-    // will create a very large array because we will not use most of it.
-    const int MAX_SIZE = 1000;
-    char temp[MAX_SIZE];
-    cout << prompt; 
-    in.getline(temp, MAX_SIZE);
-    // Here comes the cool part, find out the length of the string
-    // We use + 1 so we can add the '\0' to the end of our string
-    int numBytes = strlen(temp) + 1;
-    // Now allocate only that much memory
-    char *ptr = new char[numBytes];
-    strcpy(ptr, temp);
-    return ptr;
-}
-
-void example3() {
-    char *word1 = readLine(cin, "Enter a sentence: ");
-    char *word2 = readLine(cin, "Enter another sentence: ");
-    cout << "You entered:" << endl;
-    cout << word1 << endl;
-    cout << word2 << endl;
-    // We allocated the arrays with new [] so we must use delete []
-    delete[] word1;
-    delete[] word2;
-}
 
 int main() {
     example1();
     example2();
-    example3();
 
     return 0;
-
 }
