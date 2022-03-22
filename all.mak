@@ -1,4 +1,4 @@
-all:simplePtrs simpleArrayPtrs arrayAllocExamples readlineExample 
+all:simplePtrs simpleArrayPtrs arrayAllocExamples readlineExample classWithPtrs ptrsToClass
 
 simplePtrs: simplePtrs.cpp
 	g++ -Wall -g simplePtrs.cpp -o simplePtrs
@@ -11,3 +11,18 @@ arrayAllocExamples: arrayAllocExamples.cpp
 
 readlineExample: readlineExample.cpp
 	g++ -Wall -g readlineExample.cpp -o readlineExample
+
+ptrsToClass: classWithPtrs.o ptrsToClass.o
+	g++ -Wall -g classWithPtrs.cpp ptrsToClass.o -o ptrsToClass
+
+classWithPtrs: classWithPtrs.o classWithPtrsClient.o
+	g++ -Wall -g classWithPtrs.cpp classWithPtrsClient.o -o classWithPtrs
+
+classWithPtrs.o: classWithPtrs.cpp
+	g++ -Wall -g -c classWithPtrs.cpp -o classWithPtrs.o
+
+ptrsToClass.o: ptrsToClass.cpp
+	g++ -Wall -g -c ptrsToClass.cpp -o ptrsToClass.o
+
+classWithPtrsClient.o: classWithPtrsClient.cpp
+	g++ -Wall -g -c classWithPtrsClient.cpp -o classWithPtrsClient.o
